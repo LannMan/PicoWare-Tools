@@ -140,7 +140,7 @@ def _next_color(elapsed_ms):
         return _FLASH_SEQ[_color_idx % 2], 3000   # 3 s full white, 3 s full black
 
     else:  # ── W/B Fast ─────────────────────────────────────────────────────
-        return _FLASH_SEQ[_color_idx % 2], _MS_FAST
+        return _FLASH_SEQ[_color_idx % 2], _MS_FLASH
 
 
 def _build_menu(view_manager):
