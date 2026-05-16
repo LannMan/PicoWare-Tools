@@ -1,12 +1,13 @@
 import os
 import json
+import machine
 from picoware.system.vector import Vector
 from picoware.system.buttons import (
     BUTTON_NONE, BUTTON_BACK, BUTTON_UP, BUTTON_DOWN, BUTTON_CENTER,
     BUTTON_A, BUTTON_Z,
 )
 
-VERSION = "1.0.3"
+VERSION = "1.0.5"
 
 C_BLACK      = 0x0000
 C_WHITE      = 0xFFFF
@@ -24,13 +25,14 @@ SAVED_CFG_PATH = "/sd/picoware/wifi/wifi_manager.json"
 # max visible list rows in the scrollable area
 MAX_VISIBLE = 9
 
-_last_btn   = BUTTON_NONE
-_dirty      = True
-_networks   = []   # list of {"ssid": ..., "password": ...}
-_cursor     = 0    # selected index in _networks
-_scroll_off = 0    # first visible index
-_status_msg = ""   # brief status shown at bottom
-_status_ok  = True # True=green, False=red
+_last_btn      = BUTTON_NONE
+_dirty         = True
+_networks      = []   # list of {"ssid": ..., "password": ...}
+_cursor        = 0    # selected index in _networks
+_scroll_off    = 0    # first visible index
+_status_msg    = ""   # brief status shown at bottom
+_status_ok     = True # True=green, False=red
+_reboot_pending = False
 
 
 def _load_wifi_cfg():
@@ -88,12 +90,14 @@ def _import_current():
 
 
 def _activate_selected():
+    global _reboot_pending
     if not _networks:
         _set_status("No networks saved", ok=False)
         return
     entry = _networks[_cursor]
     _save_wifi_cfg(entry)
-    _set_status("Active: " + entry.get("ssid", "?"))
+    _set_status("Rebooting: " + entry.get("ssid", "?"))
+    _reboot_pending = True
 
 
 def _delete_selected():
@@ -109,13 +113,14 @@ def _delete_selected():
 
 
 def start(vm):
-    global _networks, _cursor, _scroll_off, _dirty, _last_btn, _status_msg
-    _networks   = _load_networks()
-    _cursor     = 0
-    _scroll_off = 0
-    _dirty      = True
-    _last_btn   = BUTTON_NONE
-    _status_msg = ""
+    global _networks, _cursor, _scroll_off, _dirty, _last_btn, _status_msg, _reboot_pending
+    _networks      = _load_networks()
+    _cursor        = 0
+    _scroll_off    = 0
+    _dirty         = True
+    _last_btn      = BUTTON_NONE
+    _status_msg    = ""
+    _reboot_pending = False
     return True
 
 
@@ -160,6 +165,8 @@ def run(vm):
     if _dirty:
         _draw(vm)
         _dirty = False
+        if _reboot_pending:
+            machine.reset()
 
 
 def stop(vm):
