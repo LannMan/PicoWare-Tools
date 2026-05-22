@@ -9,7 +9,6 @@ A collection of MicroPython apps for the [PicoCalc](https://github.com/clockwork
 | `wifi_manager.py` | Manage saved WiFi networks on the device |
 | `ftpserver.py` | FTP server — push/pull files over Wi-Fi from your desktop |
 | `companion.py` | Wireless remote control for [Bitfocus Companion](https://bitfocus.io/companion) |
-| `esv_bible.py` | ESV Bible reader with offline caching and audio playback |
 | `lcd_repair.py` | LCD burn-in and image retention repair utility |
 
 ## Installation
@@ -140,76 +139,6 @@ Turns the PicoCalc into a wireless remote control for [Bitfocus Companion](https
 - **Step 4 — Confirm:** CENTER saves; BACK goes back.
 
 Config is saved to `/sd/companion/config.json` on first setup.
-
----
-
-## esv_bible.py — ESV Bible
-
-Browse and read the ESV Bible by book and chapter. Fetches passages from the ESV API over Wi-Fi and caches them locally so previously read chapters load instantly without a network connection. Audio playback is supported on hardware that includes a speaker.
-
-### Requirements
-
-- Device connected to Wi-Fi (for first fetch of each passage)
-- Free ESV API key from [api.esv.org](https://api.esv.org)
-
-### Setup
-
-Create `/sd/picoware/settings/esv_config.json` on the SD card:
-
-```json
-{"api_key": "YOUR_KEY_HERE"}
-```
-
-The app shows setup instructions on first launch if this file is missing.
-
-### Controls
-
-**Browse (book select)**
-
-| Button | Action |
-|---|---|
-| LEFT / RIGHT | Switch category (OT Law, Gospels, etc.) |
-| UP / DOWN | Select book within category |
-| CENTER | Open chapter select for chosen book |
-| Z | Type a passage reference directly |
-| BACK | Exit app |
-
-**Browse (chapter select)**
-
-| Button | Action |
-|---|---|
-| Arrows | Navigate chapter grid |
-| CENTER | Open selected chapter |
-| BACK | Return to book select |
-
-**Input (type a reference)**
-
-Type a reference such as `John 3` or `Gen 1`, then CENTER to open. BACK cancels.
-
-**Reading**
-
-| Button | Action |
-|---|---|
-| UP / DOWN | Scroll text (3 lines at a time) |
-| LEFT / RIGHT | Previous / next chapter |
-| A | Fetch and play audio (if speaker present) |
-| Z / BACK | Return to browse |
-
-**Reading (audio playing)**
-
-| Button | Action |
-|---|---|
-| A | Stop audio |
-| UP / DOWN | Scroll text |
-| LEFT / RIGHT | Stop audio and go to previous / next chapter |
-| Z / BACK | Stop audio and return to browse |
-
-### Cache
-
-| Path | Contents |
-|---|---|
-| `/sd/picoware/esv_cache/text/` | Passage text (cached indefinitely) |
-| `/sd/picoware/esv_cache/audio/` | Audio MP3s (expire after 7 days) |
 
 ---
 

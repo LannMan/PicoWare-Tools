@@ -26,21 +26,6 @@
 - L/R arrow now shifts the column window and auto-advances page at the edge
 - Expanded and clarified in-file control reference
 
-## esv_bible.py — v0.2.0
-
-- **Bulk preload**: mark chapters with `Space` in chapter select grid (shown in yellow); press `F2` to download text and audio for all marked chapters in a background thread
-- Preload progress screen shows current item label (e.g. "John 3 - audio"), chapter count (N / M), and a progress bar
-- `BACK` cancels an in-progress preload after the current item finishes
-- Marks accumulate across book navigations; cleared automatically on completion or cancel
-- Chapter select footer hint now shows mark count: `SPC=mark(N) F2=preload`
-
-## esv_bible.py — v0.1.0 *(previous)*
-
-- New app: ESV Bible reader
-- Fetches passages via `picoware.system.http` (ESV API)
-- Scrollable, word-wrapped text display; navigate by verse, chapter, and book
-- Caches fetched passages to `/sd/picoware/esv/` to reduce network calls
-
 ## ftpserver.py — v3.1
 
 - Uses `picoware.system.colors` palette (TFT_* constants) with inline fallback for older firmware
