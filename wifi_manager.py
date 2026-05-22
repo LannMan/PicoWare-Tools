@@ -7,7 +7,7 @@ from picoware.system.buttons import (
     BUTTON_A, BUTTON_Z,
 )
 
-VERSION = "1.0.5"
+VERSION = "1.0.7"
 
 C_BLACK      = 0x0000
 C_WHITE      = 0xFFFF
@@ -18,9 +18,10 @@ C_RED        = 0xF800
 C_GREEN      = 0x07E0
 C_YELLOW     = 0xFFE0
 
-WIFI_SSID_PATH = "/sd/picoware/wifi/ssid.json"
-WIFI_PWD_PATH  = "/sd/picoware/wifi/password.json"
-SAVED_CFG_PATH = "/sd/picoware/wifi/wifi_manager.json"
+WIFI_SSID_PATH      = "/sd/picoware/wifi/ssid.json"
+WIFI_PWD_PATH       = "/sd/picoware/wifi/password.json"
+WIFI_SETTINGS_PATH  = "/sd/picoware/wifi/settings.json"
+SAVED_CFG_PATH      = "/sd/picoware/wifi/wifi_manager.json"
 
 # max visible list rows in the scrollable area
 MAX_VISIBLE = 9
@@ -47,10 +48,14 @@ def _load_wifi_cfg():
 
 
 def _save_wifi_cfg(entry):
+    ssid = entry.get("ssid", "")
+    pwd  = entry.get("password", "")
     with open(WIFI_SSID_PATH, "w") as f:
-        json.dump({"ssid": entry.get("ssid", "")}, f)
+        json.dump({"ssid": ssid}, f)
     with open(WIFI_PWD_PATH, "w") as f:
-        json.dump({"password": entry.get("password", "")}, f)
+        json.dump({"password": pwd}, f)
+    with open(WIFI_SETTINGS_PATH, "w") as f:
+        json.dump({"ssid": ssid, "password": pwd}, f)
 
 
 def _load_networks():

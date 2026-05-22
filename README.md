@@ -42,6 +42,7 @@ Manage saved WiFi networks directly on the device. Switch between networks, impo
 |---|---|---|
 | `/sd/picoware/wifi/ssid.json` | `{"ssid": "..."}` | Active SSID (read/written by OS) |
 | `/sd/picoware/wifi/password.json` | `{"password": "..."}` | Active password (read/written by OS) |
+| `/sd/picoware/wifi/settings.json` | `{"ssid": "...", "password": "..."}` | Combined credentials written on network activation |
 | `/sd/picoware/wifi/wifi_manager.json` | `[{"ssid": "...", "password": "..."}, ...]` | Saved networks list (managed by this app) |
 
 ---

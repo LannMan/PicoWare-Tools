@@ -47,7 +47,11 @@
 - Uses `picoware.system.wifi` for IP address resolution with fallback to raw `network.WLAN`
 - Improved OSError handling: distinguishes "no data / timed out" from genuine connection loss so the receive loop no longer drops on transient timeouts
 
-## wifi_manager.py — v1.0.5
+## wifi_manager.py — v1.0.7
+
+- Writes `/sd/picoware/wifi/settings.json` (combined `{"ssid": ..., "password": ...}`) on network activation; required by OS v1.8.3+ which reads this file for WiFi credentials on boot
+
+## wifi_manager.py — v1.0.5 *(previous)*
 
 - Activating a network now calls `machine.reset()` after saving so the new credentials take effect immediately
 - Status message updated to "Rebooting: {ssid}" to reflect the new behavior
