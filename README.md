@@ -138,7 +138,7 @@ Turns the PicoCalc into a wireless remote control for [Bitfocus Companion](https
 - **Step 3 — Reorder:** UP/DN navigate the list; A/Z move the selected item; BACK continues.
 - **Step 4 — Confirm:** CENTER saves; BACK goes back.
 
-Config is saved to `/sd/companion/config.json` on first setup.
+Config is saved to `/sd/picoware/settings/companion.json`. The legacy path `/sd/companion/config.json` is auto-migrated on first launch.
 
 ---
 
